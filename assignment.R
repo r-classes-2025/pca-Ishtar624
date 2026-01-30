@@ -62,7 +62,7 @@ km.out <- kmeans(scale(friends_tf_wide),
 
 # 6. примените к матрице метод главных компонент (prcomp)
 # центрируйте и стандартизируйте, использовав аргументы функции
-pca_fit <- prcomp(friends_tf_wide, center = TRUE, scale. = TRUE)
+pca_fit <- prcomp(scale(friends_tf_wide))
 
 # 7. Покажите наблюдения и переменные вместе (биплот)
 # в качестве геома используйте текст (=имя персонажа)
@@ -82,5 +82,5 @@ q <- fviz_pca_biplot(pca_fit, geom.ind = "text",
     vjust = -0.5)+
   theme(legend.position = "none")
 
-q
+#q
 
