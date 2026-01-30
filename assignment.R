@@ -43,7 +43,8 @@ friends_tf <- friends_tokens |>
 # 4. преобразуйте в широкий формат; 
 # столбец c именем спикера превратите в имя ряда, используя подходящую функцию 
 friends_tf_wide <- friends_tf |> 
-  select(speaker, word, tf) |> 
+  arrange(word) |>
+  #select(speaker, word, tf) |> 
   pivot_wider(names_from = word, values_from = tf, values_fill = 0) |>
   column_to_rownames("speaker")
 
