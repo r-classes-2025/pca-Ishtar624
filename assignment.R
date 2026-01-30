@@ -32,9 +32,10 @@ friends_tokens <- friends |>
 friends_tf <- friends_tokens |>
   count(speaker, word, sort = TRUE) |> 
   group_by(speaker) |>
-  slice_max(n, n = 500) |>
+  slice_max(n, n = 500, with_ties = FALSE) |>
   mutate(tf = n / sum(n)) |> 
-  ungroup()
+  ungroup() |> 
+  select(speaker, word, tf)
 
 #friends_tf
 
@@ -67,7 +68,7 @@ pca_fit <- prcomp(friends_tf_wide, center = TRUE, scale. = TRUE)
 # отберите 20 наиболее значимых переменных (по косинусу, см. документацию к функции)
 # сохраните график как переменную q
 
-q <- fviz_pca_biplot(pca_fit,  geom = c("text"),
+q <- fviz_pca_biplot(pca_fit,  geom = "text",
                      select.var = list(cos2 = 20),
                      habillage = as.factor(km.out$cluster),
                      col.var = "steelblue",
