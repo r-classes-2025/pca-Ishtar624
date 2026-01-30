@@ -68,13 +68,16 @@ pca_fit <- prcomp(friends_tf_wide, center = TRUE, scale. = TRUE)
 # отберите 20 наиболее значимых переменных (по косинусу, см. документацию к функции)
 # сохраните график как переменную q
 
-q <- fviz_pca_biplot(pca_fit,  geom = "text",
+q <- fviz_pca_biplot(pca_fit, geom.ind = "text",
                      select.var = list(cos2 = 20),
                      habillage = as.factor(km.out$cluster),
                      col.var = "steelblue",
                      alpha.var = 0.3,
                      repel = TRUE,
                      ggtheme = theme_minimal()) +
+  geom_text(aes(label = rownames(friends_tf_wide)),
+    size = 4,
+    vjust = -0.5)+
   theme(legend.position = "none")
 
 #q
