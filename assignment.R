@@ -43,9 +43,7 @@ friends_tf <- friends_tokens |>
 # 4. преобразуйте в широкий формат; 
 # столбец c именем спикера превратите в имя ряда, используя подходящую функцию 
 friends_tf_wide <- friends_tf |> 
-  arrange(word) |>
-  #select(speaker, word, tf) |> 
-  pivot_wider(names_from = word, values_from = tf, values_fill = 0) |>
+  pivot_wider(names_from = word, values_from = tf, values_fill = 0) |> 
   column_to_rownames("speaker")
 
 #friends_tf_wide
@@ -62,7 +60,9 @@ km.out <- kmeans(scale(friends_tf_wide),
 
 # 6. примените к матрице метод главных компонент (prcomp)
 # центрируйте и стандартизируйте, использовав аргументы функции
-pca_fit <- prcomp(scale(friends_tf_wide))
+pca_fit <- prcomp(friends_tf_wide,
+  center = TRUE,
+  scale. = TRUE)
 
 # 7. Покажите наблюдения и переменные вместе (биплот)
 # в качестве геома используйте текст (=имя персонажа)
